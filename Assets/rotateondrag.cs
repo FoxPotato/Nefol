@@ -3,13 +3,15 @@ using System.Collections;
 
 public class rotateondrag : MonoBehaviour {
 
-	float 	f_lastX 	= 0.0f;
-	float 	f_difX 		= 0.5f;
-	int 	i_directionX = 0;
+	float 	lastX 		= 0.0f;
+	float 	difX 		= 0.5f;
+	int 	directionX 	= 0;
 
-	float 	f_lastY 	= 0.0f;
-	float 	f_difY 		= 0.5f;
-	int 	i_directionY = 0;
+	float 	lastY 		= 0.0f;
+	float 	difY 		= 0.5f;
+	int 	directionY 	= 0;
+
+	float	extraSteps 	= 0.5f;
 
 	Quaternion startRotation;
 
@@ -23,45 +25,45 @@ public class rotateondrag : MonoBehaviour {
 
 		if (Input.GetKeyDown (KeyCode.Escape)) 
 		{
-			i_directionX = 0;
-			i_directionY = 0;
+			directionX = 0;
+			directionY = 0;
 			transform.rotation = startRotation;
 		}
 
 		if (Input.GetMouseButtonDown (0)) 
 		{
-			f_difX = 0.0f;
-			f_difY = 0.0f;
+			difX = 0.0f;
+			difY = 0.0f;
 		}
 		else if (Input.GetMouseButton (0)) {
-			f_difX = Mathf.Abs (f_lastX - Input.GetAxis ("Mouse X"));
+			difX = Mathf.Abs (lastX - Input.GetAxis ("Mouse X"));
 
-			if (f_lastX < Input.GetAxis ("Mouse X")) {
-				i_directionX = -1;
-				transform.Rotate(0, -f_difX, 0, Space.World);
+			if (lastX < Input.GetAxis ("Mouse X")) {
+				directionX = -1;
+				transform.Rotate(0, -difX - extraSteps, 0, Space.World);
 			}
 
-			if (f_lastX > Input.GetAxis ("Mouse X")) {
-				i_directionX = 1;
-				transform.Rotate(0, f_difX, 0, Space.World);
+			if (lastX > Input.GetAxis ("Mouse X")) {
+				directionX = 1;
+				transform.Rotate(0, difX + extraSteps, 0, Space.World);
 			}
 
-			f_lastX = -Input.GetAxis ("Mouse X");
+			lastX = -Input.GetAxis ("Mouse X");
 
 
 
-			f_difY = Mathf.Abs (f_lastY - Input.GetAxis ("Mouse Y"));
+			difY = Mathf.Abs (lastY - Input.GetAxis ("Mouse Y"));
 
-			if (f_lastY < Input.GetAxis ("Mouse Y")) {
-				i_directionY = -1;
-				transform.Rotate(f_difY, 0, 0, Space.World);
+			if (lastY < Input.GetAxis ("Mouse Y")) {
+				directionY = -1;
+				transform.Rotate(difY + extraSteps, 0, 0, Space.World);
 			}
-			if (f_lastY > Input.GetAxis ("Mouse Y")) {
-				i_directionY = 1;
-				transform.Rotate(-f_difY, 0, 0, Space.World);
+			if (lastY > Input.GetAxis ("Mouse Y")) {
+				directionY = 1;
+				transform.Rotate(-difY - extraSteps, 0, 0, Space.World);
 			}
 
-			f_lastY = -Input.GetAxis ("Mouse Y");
+			lastY = -Input.GetAxis ("Mouse Y");
 		} 
 		else 
 		{
