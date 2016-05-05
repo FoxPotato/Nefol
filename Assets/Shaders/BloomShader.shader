@@ -11,6 +11,8 @@
 
 		CGINCLUDE
 
+		#define USE_RGBM defined(SHADER_API_MOBILE)
+
 		sampler2D _MainTex;
 		sampler2D _BaseTex;
 		float2 _MainTex_TexelSize;
