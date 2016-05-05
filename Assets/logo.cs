@@ -1,9 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class rotateondrag : MonoBehaviour {
-
-	public bool isCorrect = false;
+public class logo : MonoBehaviour {
 
 	float 			lastX 		= 0.0f;
 	float 			difX 		= 0.5f;
@@ -13,32 +11,28 @@ public class rotateondrag : MonoBehaviour {
 
 	float			extraSteps 	= 0.1f;
 
-	public float	margin 		= 4f;
-
 	Quaternion startRotation;
 
 	// Use this for initialization
 	void Start () {
 		startRotation = transform.rotation;
 
-		System.Random rand = new System.Random ();
-		transform.Rotate (rand.Next (50, 359), rand.Next (50, 359), rand.Next (50, 359));
 	}
-
+	
 	// Update is called once per frame
 	void Update () {
 
 		if (Input.GetKeyDown (KeyCode.Escape)) 
 		{
-			UnityEngine.SceneManagement.SceneManager.LoadScene("main menu");
+			transform.rotation = startRotation;
 		}
 
-		if (Input.GetMouseButtonDown (0) && !isCorrect) 
+		if (Input.GetMouseButtonDown (0)) 
 		{
 			difX = 0.0f;
 			difY = 0.0f; 
 		}
-		else if (Input.GetMouseButton (0) && !isCorrect) {
+		else if (Input.GetMouseButton (0)) {
 			difX = Mathf.Abs (lastX - Input.GetAxis ("Mouse X"));
 
 			if (lastX < Input.GetAxis ("Mouse X")) 
@@ -59,18 +53,6 @@ public class rotateondrag : MonoBehaviour {
 
 			lastY = -Input.GetAxis ("Mouse Y");
 		} 
-		else 
-		{
-
-			if ((transform.rotation.eulerAngles.x < margin || transform.rotation.eulerAngles.x > (360f - margin)) &&
-				(transform.rotation.eulerAngles.y < margin || transform.rotation.eulerAngles.y > (360f - margin))) {
-				isCorrect = true;
-				transform.rotation = Quaternion.Slerp(transform.rotation, startRotation, Time.time * 0.0001f);
-			}
-			else
-				isCorrect = false;
-
-		}
 
 	}
 }
