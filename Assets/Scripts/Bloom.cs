@@ -20,7 +20,7 @@ namespace PostProcessing
         private Material material;
         
         private int iterations;
-        private const int maxIterations = 16;
+        private static int maxIterations = 16;
 
         RenderTexture[] blurBuffer1 = new RenderTexture[maxIterations];
         RenderTexture[] blurBuffer2 = new RenderTexture[maxIterations];

@@ -35,7 +35,7 @@ public class mainButton : MonoBehaviour {
 		if (Input.GetMouseButtonDown (0)) {
 			if (RectTransformUtility.RectangleContainsScreenPoint (rect, Input.mousePosition)) {
 				System.Random rand = new System.Random ();
-				int id = rand.Next (1, 3);
+				int id = rand.Next (1, 4);
 				UnityEngine.SceneManagement.SceneManager.LoadScene (id);
 				Debug.Log(id);
 			}
